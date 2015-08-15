@@ -1,9 +1,24 @@
+body {
+  background: #E0E0E0;
+}
+
 h1 {
   text-align: center;
-  font-family: Comic Sans MS;
+  font-family: 'Dosis', sans-serif;
   font-size: 60px;
   font-style: bold;
 }
+
+.turn {
+  text-align: center;
+  font-family: 'Dosis', sans-serif;
+  font-size: 40px;
+  font-style: bold;
+}
+
+.table th, .table td {
+  border-top: none !important;
+ }
 
 .h1-border2 {
   width: 80px;
@@ -11,7 +26,8 @@ h1 {
 
 .h1-border {
   background: black;
-  /*border-radius: 50%;*/
+  border-radius: 50%;
+  background: #505050;
 }
 
 .hor-border {
@@ -21,9 +37,24 @@ h1 {
 
 h2 {
   text-align: center;
-  font-family: Comic Sans MS;
-  font-size: 40px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 50px;
   font-style: bold;
 }
 
+button {
+  font-family: 'Dosis', sans-serif;
+  margin-left: 30px;
+}
 
+.score-box {
+  border: 2px solid black;
+  height: 50px;
+  width: 60px;
+}
+
+p {
+  font-size: 25px;
+  text-align: center;
+  margin-top: 3px;
+}

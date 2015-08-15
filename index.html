@@ -2,16 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Dots and Box Game</title>
+    <title>Dots and Boxes Game</title>
 
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://bootswatch.com/flatly/bootstrap.min.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body>
     <div class="container">
       <div class="row col-sm-8 col-sm-offset-2">
-        <h1>Dots and Box Game</h1>
+        <h1>Dots and Boxes Game</h1>
+        <br>
+        <div class="turn">Current Turn: <span class="turn" id="next-turn">Player 1</span></div>
         <br><br>
         <table class="table">
 
@@ -29,13 +33,13 @@
 
           <tr id="hor2-row">
             <td id="5" class="hor-border"></td>
-            <td id="6" class="hor-border2"></td>
+            <td id="box0" class="hor-border2"></td>
             <td id="7" class="hor-border"></td>
-            <td id="8" class="hor-border2"></td>
+            <td id="box1" class="hor-border2"></td>
             <td id="9" class="hor-border"></td>
-            <td id="10" class="hor-border2"></td>
+            <td id="box2" class="hor-border2"></td>
             <td id="11" class="hor-border"></td>
-            <td id="12" class="hor-border2"></td>
+            <td id="box3" class="hor-border2"></td>
             <td id="13" class="hor-border"></td>
           </tr>
 
@@ -53,13 +57,13 @@
 
           <tr id="hor2-row">
             <td id="18" class="hor-border"></td>
-            <td id="19" class="hor-border2"></td>
+            <td id="box4" class="hor-border2"></td>
             <td id="20" class="hor-border"></td>
-            <td id="21" class="hor-border2"></td>
+            <td id="box5" class="hor-border2"></td>
             <td id="22" class="hor-border"></td>
-            <td id="23" class="hor-border2"></td>
+            <td id="box6" class="hor-border2"></td>
             <td id="24" class="hor-border"></td>
-            <td id="25" class="hor-border2"></td>
+            <td id="box7" class="hor-border2"></td>
             <td id="26" class="hor-border"></td>
           </tr>
 
@@ -77,13 +81,13 @@
 
           <tr id="hor2-row">
             <td id="31" class="hor-border"></td>
-            <td id="32" class="hor-border2"></td>
+            <td id="box8" class="hor-border2"></td>
             <td id="33" class="hor-border"></td>
-            <td id="34" class="hor-border2"></td>
+            <td id="box9" class="hor-border2"></td>
             <td id="35" class="hor-border"></td>
-            <td id="36" class="hor-border2"></td>
+            <td id="box10" class="hor-border2"></td>
             <td id="37" class="hor-border"></td>
-            <td id="38" class="hor-border2"></td>
+            <td id="box11" class="hor-border2"></td>
             <td id="39" class="hor-border"></td>
           </tr>
 
@@ -101,13 +105,13 @@
 
           <tr id="hor2-row">
             <td id="44" class="hor-border"></td>
-            <td id="45" class="hor-border2"></td>
+            <td id="box12" class="hor-border2"></td>
             <td id="46" class="hor-border"></td>
-            <td id="47" class="hor-border2"></td>
+            <td id="box13" class="hor-border2"></td>
             <td id="48" class="hor-border"></td>
-            <td id="49" class="hor-border2"></td>
+            <td id="box14" class="hor-border2"></td>
             <td id="50" class="hor-border"></td>
-            <td id="51" class="hor-border2"></td>
+            <td id="box15" class="hor-border2"></td>
             <td id="52" class="hor-border"></td>
           </tr>
 
@@ -127,11 +131,30 @@
         <br>
         <div class="col-sm-6">
           <h2>Player 1</h2>
+          <br>
+            <div class="score-box col-sm-1 col-sm-offset-5">
+              <p>0</p>
+            </div>
         </div>
         <div class="col-sm-6">
           <h2>Player 2</h2>
+          <br>
+            <div class="score-box col-sm-1 col-sm-offset-5">
+              <p>0</p>
+            </div>
         </div>
+      </div> <!-- close row -->
 
+      <div class="row col-sm-2 col-sm-offset-5 row-centered">
+        <br><br>
+        <div aria-label="...">
+          <button type="button" id="rules" class="btn-lg btn-success" data-container="body" data-toggle="popover" data-placement="top" data-content="Starting with an empty grid of dots, players take turns, adding a single horizontal or vertical line between two unjoined adjacent dots. A player who completes the fourth side of a 1X1 box earns one point and takes another turn. The game ends when no more lines can be placed. The winner of the game is the player with the most points.">Rules
+          </button>
+        </div>
+        <br><br>
+        <div aria-label="...">
+          <button type="button" id="reset" class="btn-lg btn-success">Reset</button>
+        </div>
       </div> <!-- close row -->
     </div> <!-- close container -->
 

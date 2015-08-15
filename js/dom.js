@@ -15,25 +15,27 @@ $(document).on('ready', function() {
   });
 
 
-//Left and right border. When the mouseenters it will change the color to red. When the mouse leaves it changes the color to nothing. When clicked it permanently changes the color to black.
-$(".hor-border")
-  .bind("mouseenter", function() {
-    $(this).css("background", "red");
-  })
-  .bind("mouseleave", function() {
-    $(this).css("background", "");
-  })
-  .bind("click", function() {
-    $(this).unbind("mouseenter");
-    $(this).unbind("mouseleave");
-    $(this).css("background", "black");
-  });
+
+  //Left and right border. When the mouseenters it will change the color to red. When the mouse leaves it changes the color to nothing. When clicked it permanently changes the color to black.
+ $(".hor-border")
+    .bind("mouseenter", function() {
+      $(this).css("background", "#FFCC00");
+    })
+    .bind("mouseleave", function() {
+      $(this).css("background", "");
+    })
+    .bind("click", function() {
+      $(this).unbind("mouseenter");
+      $(this).unbind("mouseleave");
+      $(this).css("background", "#505050");
+    });
+
 
 
 //Top and bottom border. When the mouseenters it will change the color to red. When the mouse leaves it changes the color to nothing. When clicked it permanently changes the color to black.
-  $(".h1-border2")
+ $(".h1-border2")
   .bind("mouseenter", function() {
-    $(this).css("background", "red");
+    $(this).css("background", "#FFCC00");
   })
   .bind("mouseleave", function() {
     $(this).css("background", "");
@@ -41,14 +43,59 @@ $(".hor-border")
   .bind("click", function() {
     $(this).unbind("mouseenter");
     $(this).unbind("mouseleave");
-    $(this).css("background", "black");
+    $(this).css("background", "#505050");
   });
 
 
-  $(".hor-border2").unbind("click");
+//Show the rules when the button is clicked. Hide the rules when the button is clicked again.
+  $("#rules").on("click", function () {
+    $(this).popover("show");
+
+
+
+$("#reset").on("click", function() {
+  $(".hor-border")
+    .bind("mouseenter", function() {
+      $(this).css("background", "#FFCC00");
+    })
+    .bind("mouseleave", function() {
+      $(this).css("background", "");
+    });
+  $(".h1-border2")
+    .bind("mouseenter", function() {
+      $(this).css("background", "#FFCC00");
+    })
+    .bind("mouseleave", function() {
+      $(this).css("background", "");
+    });
+  console.log("i work");
+  newGame.grid.resetGrid();
+});
+
+
+
+
+
+// $('#next-turn').text(" Player " + grid.currentPlayer);
+
+
+
+
+
+
+
+
+
 
 
 });
+});
+
+
+
+
+
+
 
 
 
