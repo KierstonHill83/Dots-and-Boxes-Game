@@ -6,7 +6,7 @@ $(document).on('ready', function() {
   console.log(newGame);
 
   //When you click on each border  the id will be console logged. newGame is an instance of the Game class. grid is a property of the Game Class. updateClickedBoxArray is a method of the grid.
-  $("td").on("click", function() {
+  $(".hor-border, .h1-border2").one("click", function() {
     var id = $(this).attr("id");
     //console.log(id);
     // var player = newGame.currentPlayer;
@@ -48,9 +48,7 @@ $(document).on('ready', function() {
 
 
 //Show the rules when the button is clicked. Hide the rules when the button is clicked again.
-  $("#rules").on("click", function () {
-    $(this).popover("show");
-
+$('#rules').popover();
 
 
 $("#reset").on("click", function() {
@@ -81,14 +79,6 @@ $("#reset").on("click", function() {
 
 
 
-
-
-
-
-
-
-
-});
 });
 
 

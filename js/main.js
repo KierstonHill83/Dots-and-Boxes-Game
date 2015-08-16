@@ -45,13 +45,14 @@ Player.prototype.updateScore = function() {
 function Grid(player1, player2, currentPlayer) {
   this.player = [player1, player2];
   this.clickedBorder = [];
-  this.$borderID = $("td");
+  this.$borderID = $(".hor-border, .h1-border2");
   this.currentPlayer = currentPlayer;
 }
 
 //If the current player is player 1, the current player will reassign to 2 and become player 2. If not, the current player will be player 1. Using an exclusive or.
 Grid.prototype.switchTurns = function() {
   this.currentPlayer ^= 1;
+  console.log(this.currentPlayer);
 };
 
 //Takes in the borderID and player(the current Player). The player that was the current player(1 or 2) is now passed into the clickedBox Array. It will show up in the array at the index of the box that was clicked.
@@ -63,22 +64,10 @@ Grid.prototype.updateClickedBoxArray = function(borderID) {
 };
 
 
-//Check for the winner. If all the numbers from winningCombos array are not in player array, continue to play. If player array matches one of the winningCombos then change the color of the box it created.
-Grid.prototype.checkForWinner = function() {
-  //Using recursion to call back on itself. Keep looking for a matching winner/player array until everything has a match.
-  // if (this.clickedBorder.indexOf([1,5,7,14]) === 1) {
-  //   console.log("hello");
-  //     this.checkForWinner();
-  // }
-  // //When there are no more nulls go into the getWinner function
-  // if (this.clickedBorder.indexOf([1,5,7,14]) === 0) {
-  //     console.log("it works");
-  //     //getWinner();
-  // }
-
   //first loop grabs the first array. The second loop grabs the values in the second array. Then the clickedBorder array checks each index of the array one at a time. If it is not a winning array move on.
+Grid.prototype.checkForWinner = function() {
     for (var i = 0; i < copyWinCombo.length; i++) {
-      var found;
+      var found = false;
       for (var j = 0; j < copyWinCombo[i].length; j++) {
         if (this.clickedBorder.includes(copyWinCombo[i][j])) {
           found = true;
@@ -92,25 +81,37 @@ Grid.prototype.checkForWinner = function() {
 
       if (found) {
        $("#box"+i).css("background", this.player[this.currentPlayer].playerColor);
-       var output = copyWinCombo.slice(i, 1);
+       var output = copyWinCombo.slice(i, i+1);
        copyWinCombo[i] = [];
        this.player[this.currentPlayer].boxesWon.push(output);
+       var lastIndex = this.clickedBorder[this.clickedBorder.length -1];
+        $("#"+lastIndex).unbind("mouseenter");
+        $("#"+lastIndex).unbind("mouseleave");
+        $("#"+lastIndex).css("background", "#505050");
+       this.getWinner();
      }
   }
 
 };
 
+bootbox.alert("Hello world!", function() {
+  Example.show("Hello world callback");
+});
 
 
 //If player 1's score is greater than player 2's score, they are the winner. Otherwise player 2 is the winner.
 Grid.prototype.getWinner = function() {
-    /// find game object and check player 1 score vs player 2 score.
-
-  if (this.player1.boxesWon.length > this.player2.boxesWon.length) {
-    alert("Player 1 is the Winner!");
-  }
-  else {
-     alert("Player 2 is the Winner!");
+  if (this.player[0].boxesWon.length + this.player[1].boxesWon.length === copyWinCombo.length) {
+    if (this.player[0].boxesWon.length > this.player[1].boxesWon.length) {
+      alert("Congratulations! Player 1 is the Winner!");
+    } else if (this.player[1].boxesWon.length > this.player[0].boxesWon.length) {
+       alert("Congratulations! Player 2 is the Winner!");
+    } else {
+      alert("You tied!");
+    }
+      if (confirm("Play again?")) {
+        this.resetGrid();
+       }
   }
 };
 
@@ -145,8 +146,11 @@ Grid.prototype.emptyArray = function() {
 
 Grid.prototype.resetGrid = function() {
   this.$borderID.css("background", "");
+  $("[id^=box]").css("background", "");
   this.emptyArray();
   this.currentPlayer = 0;
+  copyWinCombo = winningCombos.slice(0);
+  console.log(copyWinCombo);
 };
 //will also need to reset the score
 
