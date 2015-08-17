@@ -1,5 +1,29 @@
-  //- - - - - - - - //
- //   Game Class   //
+//Holds all the winning combinations
+var winningCombos = [
+  [1,5,7,14],
+  [2,7,9,15],
+  [3,9,11,16],
+  [4,11,13,17],
+  [14,18,20,27],
+  [15,20,22,28],
+  [16,22,24,29],
+  [17,24,26,30],
+  [27,31,33,40],
+  [28,33,35,41],
+  [29,35,37,42],
+  [30,37,39,43],
+  [40,44,46,53],
+  [41,46,48,54],
+  [42,48,50,55],
+  [43,50,52,56]
+];
+
+//Makes a copy of the winning combinations. This will be used in other methods.
+var copyWinCombo = winningCombos.slice(0);
+
+
+//- - - - - - - - //
+// Game Class  //
 //- - - - - - - -//
 
 //Game class that has a property of player, grid class and the current player is set to player 1.
@@ -39,13 +63,12 @@ function Grid(player1, player2, currentPlayer) {
 Grid.prototype.switchTurns = function() {
   this.currentPlayer ^= 1;
   $("#next-turn").html("Player " + (this.currentPlayer + 1));
-  console.log(this.currentPlayer);
 };
+
 
 //When a border is clicked the id is pushed into the clickedBorder array and made into a number. If the id that was pushed gets the player a point, they get to go again. Otherwise, the function will be false and they will switchTurns.
 Grid.prototype.updateClickedBoxArray = function(borderID) {
   this.clickedBorder.push(parseInt(borderID));
-  console.log(this.clickedBorder);
     if (this.checkForWinner() === false) {
       this.switchTurns();
     }
@@ -77,9 +100,9 @@ Grid.prototype.checkForWinner = function() {
         $("#"+lastIndex).unbind("mouseenter");
         $("#"+lastIndex).unbind("mouseleave");
         $("#"+lastIndex).css("background", "#505050");
-       $("#score" + this.currentPlayer).html(this.player[this.currentPlayer].boxesWon.length);
-       this.getWinner();
-       completedBox = true;
+        $("#score" + this.currentPlayer).html(this.player[this.currentPlayer].boxesWon.length);
+        this.getWinner();
+        completedBox = true;
      }
   }
   return completedBox;
@@ -107,31 +130,6 @@ Grid.prototype.getWinner = function() {
 };
 
 
-//Holds all the winning combinations
-var winningCombos = [
-  [1,5,7,14],
-  [2,7,9,15],
-  [3,9,11,16],
-  [4,11,13,17],
-  [14,18,20,27],
-  [15,20,22,28],
-  [16,22,24,29],
-  [17,24,26,30],
-  [27,31,33,40],
-  [28,33,35,41],
-  [29,35,37,42],
-  [30,37,39,43],
-  [40,44,46,53],
-  [41,46,48,54],
-  [42,48,50,55],
-  [43,50,52,56]
-];
-
-//Makes a copy of the winning combinations. This will be used in other methods.
-var copyWinCombo = winningCombos.slice(0);
-console.log(copyWinCombo);
-
-
 //Clears the clickedBorder array.
 Grid.prototype.emptyArray = function() {
   this.clickedBorder.splice(0, this.clickedBorder.length);
@@ -150,7 +148,6 @@ Grid.prototype.resetGrid = function() {
   $("#score0").html("0");
   $("#score1").html("0");
   copyWinCombo = winningCombos.slice(0);
-  console.log(copyWinCombo);
 };
 
 
@@ -160,7 +157,7 @@ Grid.prototype.resetGrid = function() {
 
 
 
-//Experimental. .includes() only works if this is in here
+//Experimental. The technology's specification has not been stabilized. .includes() only works if this is in here. Determines whether an array includes a certain element, returning true or false.
 if (!Array.prototype.includes) {
   Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
     'use strict';
