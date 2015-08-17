@@ -2,7 +2,7 @@
  //   Game Class   //
 //- - - - - - - -//
 
-//Game class that has a property of player and grid class.
+//Game class that has a property of player, grid class and the current player is set to player 1.
 function Game() {
   this.player1 = new Player("#339999");
   this.player2 = new Player("#B93E3E");
@@ -15,7 +15,7 @@ function Game() {
 // Player Class  //
 //- - - - - - - -//
 
-//Update each player score and give each player a color
+//Update each player score and give each player a color and se the boxesWon array to an empty array.
 function Player(playerColor) {
   this.playerScore = 0;
   this.playerColor = playerColor;
@@ -27,7 +27,7 @@ function Player(playerColor) {
 //   Grid Class   //
 //- - - - - - - -//
 
-//Put each border ID that was clicked into the empty array. Define what each border ID is.
+//Put each border ID that was clicked into the empty array. Define what each border ID is. Current Player and the players are used in grid methods, so they are defined here.
 function Grid(player1, player2, currentPlayer) {
   this.player = [player1, player2];
   this.clickedBorder = [];
@@ -35,24 +35,24 @@ function Grid(player1, player2, currentPlayer) {
   this.currentPlayer = currentPlayer;
 }
 
-//If the current player is player 1, the current player will reassign to 2 and become player 2. If not, the current player will be player 1. Using an exclusive or.
+//If the current player is player 1, the current player will reassign to 2 and become player 2. If not, the current player will be player 1. Using an exclusive or. When the currentPlayer switches it will change the text on the screen.
 Grid.prototype.switchTurns = function() {
   this.currentPlayer ^= 1;
   $("#next-turn").html("Player " + (this.currentPlayer + 1));
   console.log(this.currentPlayer);
 };
 
-//Takes in the borderID and player(the current Player). The player that was the current player(1 or 2) is now passed into the clickedBox Array. It will show up in the array at the index of the box that was clicked.
+//When a border is clicked the id is pushed into the clickedBorder array and made into a number. If the id that was pushed gets the player a point, they get to go again. Otherwise, the function will be false and they will switchTurns.
 Grid.prototype.updateClickedBoxArray = function(borderID) {
   this.clickedBorder.push(parseInt(borderID));
   console.log(this.clickedBorder);
-  if (this.checkForWinner() === false) {
-    this.switchTurns();
-  }
+    if (this.checkForWinner() === false) {
+      this.switchTurns();
+    }
 };
 
 
-  //first loop grabs the first array. The second loop grabs the values in the second array. Then the clickedBorder array checks each index of the array one at a time. If it is not a winning array move on.
+  //first loop grabs the first array. The second loop grabs the values in the second array. Then the clickedBorder array checks each index of the array one at a time. If it is not a winning array move on. If the player has a winning combo in their array the box will change to their color and their score will updated. They will also get another turn. Their turn lasts until they get a false(they don't complete a box).
 Grid.prototype.checkForWinner = function() {
   var completedBox = false;
     for (var i = 0; i < copyWinCombo.length; i++) {
@@ -107,6 +107,7 @@ Grid.prototype.getWinner = function() {
 };
 
 
+//Holds all the winning combinations
 var winningCombos = [
   [1,5,7,14],
   [2,7,9,15],
@@ -126,15 +127,18 @@ var winningCombos = [
   [43,50,52,56]
 ];
 
+//Makes a copy of the winning combinations. This will be used in other methods.
 var copyWinCombo = winningCombos.slice(0);
 console.log(copyWinCombo);
 
 
-
+//Clears the clickedBorder array.
 Grid.prototype.emptyArray = function() {
   this.clickedBorder.splice(0, this.clickedBorder.length);
 };
 
+
+//Clears the grid, resets the score to 0, sets the turn back to player 1, calls the function to empty the player array.
 Grid.prototype.resetGrid = function() {
   this.$borderID.css("background", "");
   $("[id^=box]").css("background", "");
@@ -148,7 +152,6 @@ Grid.prototype.resetGrid = function() {
   copyWinCombo = winningCombos.slice(0);
   console.log(copyWinCombo);
 };
-//will also need to reset the score
 
 
 

@@ -2,6 +2,7 @@ $(document).on('ready', function() {
   console.log('sanity check!');
 
 
+//create a new instance of the game
  var newGame = new Game();
   console.log(newGame);
 
@@ -12,7 +13,7 @@ $(document).on('ready', function() {
   });
 
 
-  //Left and right border. When the mouseenters it will change the color to red. When the mouse leaves it changes the color to nothing. When clicked it permanently changes the color to black.
+  //Left and right border. When the mouseenters it will change the color to yellow. When the mouse leaves it changes the color to nothing. When clicked it permanently changes the color to gray.
  $(".hor-border")
     .bind("mouseenter", function() {
       $(this).css("background", "#FFCC00");
@@ -28,7 +29,7 @@ $(document).on('ready', function() {
 
 
 
-//Top and bottom border. When the mouseenters it will change the color to red. When the mouse leaves it changes the color to nothing. When clicked it permanently changes the color to black.
+//Top and bottom border. When the mouseenters it will change the color to yellow. When the mouse leaves it changes the color to nothing. When clicked it permanently changes the color to gray.
  $(".h1-border2")
   .bind("mouseenter", function() {
     $(this).css("background", "#FFCC00");
@@ -47,6 +48,7 @@ $(document).on('ready', function() {
 $('#rules').popover();
 
 
+//When clicked it will
 $("#reset").on("click", function() {
   $(".hor-border")
     .bind("mouseenter", function() {
@@ -70,19 +72,6 @@ $("#reset").on("click", function() {
   });
 
 });
-
-
-// $("#score1").html(this.player[this.currentPlayer].playerScore);
-
-// $("#score2").html(this.player[this.currentPlayer].playerScore);
-
-
-
-
-
-// $('#next-turn').text(" Player " + grid.currentPlayer);
-
-
 
 
 });
