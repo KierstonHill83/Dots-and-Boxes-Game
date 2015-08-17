@@ -11,15 +11,6 @@ function Game() {
 }
 
 
-
-//Start the game.
-Game.prototype.startGame = function() {
-  //reset the game method:
-    // clear the board on the dom
-    // new Game(); might happen on the dom, play again?
-};
-
-
 //- - - - - - - - //
 // Player Class  //
 //- - - - - - - -//
@@ -30,11 +21,6 @@ function Player(playerColor) {
   this.playerColor = playerColor;
   this.boxesWon = [];
 }
-
-//update player score after every box
-Player.prototype.updateScore = function() {
-  this.playerScore += 1;
-};
 
 
 //- - - - - - - - //
@@ -52,6 +38,7 @@ function Grid(player1, player2, currentPlayer) {
 //If the current player is player 1, the current player will reassign to 2 and become player 2. If not, the current player will be player 1. Using an exclusive or.
 Grid.prototype.switchTurns = function() {
   this.currentPlayer ^= 1;
+  $("#next-turn").html("Player " + (this.currentPlayer + 1));
   console.log(this.currentPlayer);
 };
 
@@ -59,13 +46,15 @@ Grid.prototype.switchTurns = function() {
 Grid.prototype.updateClickedBoxArray = function(borderID) {
   this.clickedBorder.push(parseInt(borderID));
   console.log(this.clickedBorder);
-  this.checkForWinner();
-  this.switchTurns();
+  if (this.checkForWinner() === false) {
+    this.switchTurns();
+  }
 };
 
 
   //first loop grabs the first array. The second loop grabs the values in the second array. Then the clickedBorder array checks each index of the array one at a time. If it is not a winning array move on.
 Grid.prototype.checkForWinner = function() {
+  var completedBox = false;
     for (var i = 0; i < copyWinCombo.length; i++) {
       var found = false;
       for (var j = 0; j < copyWinCombo[i].length; j++) {
@@ -88,30 +77,32 @@ Grid.prototype.checkForWinner = function() {
         $("#"+lastIndex).unbind("mouseenter");
         $("#"+lastIndex).unbind("mouseleave");
         $("#"+lastIndex).css("background", "#505050");
+       $("#score" + this.currentPlayer).html(this.player[this.currentPlayer].boxesWon.length);
        this.getWinner();
+       completedBox = true;
      }
   }
-
+  return completedBox;
 };
 
-bootbox.alert("Hello world!", function() {
-  Example.show("Hello world callback");
-});
 
 
 //If player 1's score is greater than player 2's score, they are the winner. Otherwise player 2 is the winner.
 Grid.prototype.getWinner = function() {
   if (this.player[0].boxesWon.length + this.player[1].boxesWon.length === copyWinCombo.length) {
     if (this.player[0].boxesWon.length > this.player[1].boxesWon.length) {
-      alert("Congratulations! Player 1 is the Winner!");
+      bootbox.alert("Congratulations! Player 1 is the Winner!", function() {
+        $(".container").show("Player 1 is the Winner!");
+      });
     } else if (this.player[1].boxesWon.length > this.player[0].boxesWon.length) {
-       alert("Congratulations! Player 2 is the Winner!");
+       bootbox.alert("Congratulations! Player 2 is the Winner!", function() {
+        $(".container").show("Player 2 is the Winner!");
+       });
     } else {
-      alert("You tied!");
+      bootbox.alert("You tied!", function() {
+        $(".container").show("You tied!");
+      });
     }
-      if (confirm("Play again?")) {
-        this.resetGrid();
-       }
   }
 };
 
@@ -147,8 +138,13 @@ Grid.prototype.emptyArray = function() {
 Grid.prototype.resetGrid = function() {
   this.$borderID.css("background", "");
   $("[id^=box]").css("background", "");
+  this.player[0].boxesWon = [];
+  this.player[1].boxesWon = [];
   this.emptyArray();
   this.currentPlayer = 0;
+  $("#next-turn").html("Player " + (this.currentPlayer + 1));
+  $("#score0").html("0");
+  $("#score1").html("0");
   copyWinCombo = winningCombos.slice(0);
   console.log(copyWinCombo);
 };
@@ -161,7 +157,7 @@ Grid.prototype.resetGrid = function() {
 
 
 
-
+//Experimental. .includes() only works if this is in here
 if (!Array.prototype.includes) {
   Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
     'use strict';
@@ -190,3 +186,5 @@ if (!Array.prototype.includes) {
     return false;
   };
 }
+
+

@@ -8,12 +8,8 @@ $(document).on('ready', function() {
   //When you click on each border  the id will be console logged. newGame is an instance of the Game class. grid is a property of the Game Class. updateClickedBoxArray is a method of the grid.
   $(".hor-border, .h1-border2").one("click", function() {
     var id = $(this).attr("id");
-    //console.log(id);
-    // var player = newGame.currentPlayer;
-    // console.log(player);
     newGame.grid.updateClickedBoxArray(id);
   });
-
 
 
   //Left and right border. When the mouseenters it will change the color to red. When the mouse leaves it changes the color to nothing. When clicked it permanently changes the color to black.
@@ -68,7 +64,17 @@ $("#reset").on("click", function() {
     });
   console.log("i work");
   newGame.grid.resetGrid();
+  $(".hor-border, .h1-border2").one("click", function() {
+    var id = $(this).attr("id");
+    newGame.grid.updateClickedBoxArray(id);
+  });
+
 });
+
+
+// $("#score1").html(this.player[this.currentPlayer].playerScore);
+
+// $("#score2").html(this.player[this.currentPlayer].playerScore);
 
 
 
