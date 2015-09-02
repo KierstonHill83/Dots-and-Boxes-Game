@@ -69,13 +69,14 @@ Grid.prototype.switchTurns = function() {
 //When a border is clicked the id is pushed into the clickedBorder array and made into a number. If the id that was pushed gets the player a point, they get to go again. Otherwise, the function will be false and they will switchTurns.
 Grid.prototype.updateClickedBoxArray = function(borderID) {
   this.clickedBorder.push(parseInt(borderID));
-    if (this.checkForWinner() === false) {
+    if (!this.checkForWinner()) {
       this.switchTurns();
     }
 };
 
 
   //first loop grabs the first array. The second loop grabs the values in the second array. Then the clickedBorder array checks each index of the array one at a time. If it is not a winning array move on. If the player has a winning combo in their array the box will change to their color and their score will updated. They will also get another turn. Their turn lasts until they get a false(they don't complete a box).
+  //Use a for loop instead of .includes()
 Grid.prototype.checkForWinner = function() {
   var completedBox = false;
     for (var i = 0; i < copyWinCombo.length; i++) {
@@ -187,4 +188,8 @@ if (!Array.prototype.includes) {
   };
 }
 
-
+//Pull out the nested for loops and if statements into their own functions. Use codepen to help with indenting.
+//Look into using the caret for switching turns.
+//Write a new function for .includes. Use a for loop instead.
+//Use booleans when possible
+//Make a different tab for old, commented out code so current code looks clean and readable
